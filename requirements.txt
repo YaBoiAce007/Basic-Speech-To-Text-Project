@@ -5,3 +5,4 @@ openai-whisper
 torch
 streamlit
 requests
+python-dotenv
