@@ -23,6 +23,7 @@ if uploaded_file is not None:
             result = response.json()
             st.subheader("Transcription:")
             st.write(result["text"])
+            st.write(result["path"])
         
             
         except Exception as e:

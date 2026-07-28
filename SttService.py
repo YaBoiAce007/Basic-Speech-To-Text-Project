@@ -3,6 +3,7 @@ import whisper
 import tempfile
 import shutil
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI()
 
@@ -20,13 +21,14 @@ model = whisper.load_model("base")
 @app.post("/transcribe")
 async def transcribe_audio(file: UploadFile = File(...)):
     # Save uploaded file temporarily
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
+    with tempfile.NamedTemporaryFile(suffix=".wav") as tmp:
         shutil.copyfileobj(file.file, tmp)
         temp_path = tmp.name
 
-    # Transcribe
-    result = model.transcribe(temp_path)
+    try:
+        result = model.transcribe(temp_path)
+        return {"text": result["text"]}
 
-    return {
-        "text": result["text"]
-    }
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
