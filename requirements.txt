@@ -6,3 +6,7 @@ torch
 streamlit
 requests
 python-dotenv
+numpy
+matplotlib
+librosa
+pyttsx3
