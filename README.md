@@ -99,7 +99,7 @@ The application has two parts that need to run at the same time — use two term
 **1. Start the FastAPI backend**
 
 ```bash
-uvicorn SttService:app --host 0.0.0.0 --port 8081
+uvicorn SttService:app --reload --port 8081
 ```
 
 The API will be available at: `http://127.0.0.1:8081`
@@ -113,6 +113,64 @@ streamlit run SttUI.py
 ```
 
 The Streamlit interface will open automatically in your browser at `http://localhost:8501`.
+
+---
+
+## Environment Configuration ⚙️
+
+This project uses an environment variable to connect the Streamlit frontend to the FastAPI backend.
+
+### 1. Create a `.env` file
+
+In the root directory of the project, create a file named `.env`.
+
+### 2. Add the API URL
+
+Set the backend URL to match the port your FastAPI server runs on:
+
+```env
+API_URL=http://127.0.0.1:8081
+```
+
+### Match the port
+
+The port in `.env` must match the port you use to start the backend. For example, if you run:
+
+```bash
+uvicorn SttService:app --reload --port 8081
+```
+
+Then `.env` should be:
+
+```env
+API_URL=http://127.0.0.1:8081
+```
+
+If you instead run on a different port:
+
+```bash
+uvicorn SttService:app --reload --port 5000
+```
+
+Then update `.env` accordingly:
+
+```env
+API_URL=http://127.0.0.1:5000
+```
+
+### ⚠️ Common mistake
+
+If the port in `.env` doesn't match the backend's port, requests will fail — the frontend won't receive responses, and you'll likely see connection errors in Streamlit.
+
+---
+
+### 🔐 `.env` is ignored
+
+Make sure `.env` is listed in your `.gitignore` so local configuration never gets committed:
+
+```gitignore
+.env
+```
 
 ---
 
