@@ -174,6 +174,53 @@ Make sure `.env` is listed in your `.gitignore` so local configuration never get
 
 ---
 
+## FFmpeg Installation (Required) 🎞️
+
+This project relies on FFmpeg for handling audio formats such as `.mp3`, `.m4a`, and others. Without it, audio processing — especially transcription — may fail.
+
+FFmpeg is a system dependency and is **not** included in `requirements.txt`. It's required for proper audio decoding when using `librosa` and Whisper.
+
+### 🪟 Windows
+
+**Option A: Using Chocolatey**
+
+```bash
+choco install ffmpeg
+```
+
+**Option B: Manual install**
+
+1. Download [`ffmpeg-release-essentials.zip`](https://www.gyan.dev/ffmpeg/builds/) (or from the [official FFmpeg site](https://ffmpeg.org/download.html))
+2. Extract the zip to a folder, e.g. `C:\ffmpeg`
+3. Copy the path to the `bin` folder inside it, e.g. `C:\ffmpeg\bin`
+4. Add it to your system PATH:
+   - Open **System → Environment Variables → Path → New**
+   - Paste the path and save
+   - Restart your terminal for the change to take effect
+
+### 🐧 Linux (Ubuntu/Debian)
+
+```bash
+sudo apt update
+sudo apt install ffmpeg
+```
+
+### 🍎 macOS
+
+```bash
+brew install ffmpeg
+```
+
+### ✅ Verify Installation
+
+```bash
+ffmpeg -version
+```
+
+If installed correctly, this will print version details in the terminal.
+
+---
+
 ## Author
 
 Aniketh Gurung
